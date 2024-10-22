@@ -1,0 +1,1 @@
+default_terminal_line_length: int = 150
