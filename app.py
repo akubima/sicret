@@ -5,7 +5,7 @@ import database as db
 
 try:
     iface_print.header()
-    db.validate_table(must_all_checked=False)
+    db.validate_tables()
     iface_auth.welcome()
 except Exception as e:
     iface_error.handle_exception(e)

@@ -1,10 +1,11 @@
 import interface.print as iface_print
 import interface.common as iface_common
+import interface.user as iface_user
 import auth
 import auth.user as auth_user
 
 def welcome() -> None:
-    if auth_user.user is not None: dashboard()
+    if auth.is_authed(): dashboard()
     iface_print.header()
     iface_print.info('Halo, silahkan pilih menu di bawah ini:')
     iface_print.general('[1] Login')
@@ -24,7 +25,7 @@ def welcome() -> None:
             register()
 
 def login() -> None:
-    if auth_user.user is not None: dashboard()
+    if auth.is_authed(): dashboard()
     iface_print.header()
     iface_print.info('Silahkan login terlebih dahulu.')
 
@@ -45,7 +46,7 @@ def login() -> None:
         iface_print.failed(f'Username atau password yang kamu masukkan salah nih.')
 
 def register() -> None:
-    if auth_user.user is not None: dashboard()
+    if auth.is_authed(): dashboard()
     iface_print.header()
     iface_print.info('Halo, silahkan lengkapi data-datamu dulu ya!')
 
@@ -78,7 +79,10 @@ def register() -> None:
     login()
 
 def dashboard(is_from_login: bool = False) -> None:
+    if not auth.is_authed(): welcome()
+
     iface_print.header()
+    iface_user.profile()
 
     if is_from_login:
         iface_print.success(f'Selamat datang kembali {auth_user.user['name'].split(' ')[0]}, senang sekali bertemu lagi denganmu.')

@@ -3,9 +3,12 @@ This module contains methods for printing various types of messages
 and headers to the terminal. It includes methods for printing separators, headers, warnings,
 success messages, failure messages, and informational messages with standardized formats and colors.
 """
+import auth
 from .common import clear_terminal
 from .__init__ import default_terminal_line_length
 from .format import general as format_general
+import auth
+import auth.user as auth_user
 
 # This function is used to print a separator line, nothing fancy.
 def separator(count: int = default_terminal_line_length) -> None:
