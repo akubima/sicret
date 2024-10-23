@@ -4,6 +4,7 @@ https://docs.python.org/3/library/sqlite3.html
 import sqlite3
 import interface.print as iface_print
 import database.schema as db_schema
+import database as db
 
 conn = sqlite3.connect('../database.db')
 cur = conn.cursor()
@@ -48,3 +49,9 @@ def query_to_dict(database_schema: str, query_result: tuple) -> dict:
         column_count += 1
 
     return result
+
+def get_vehicles() -> list:
+    db.cur.execute('SELECT * FROM vehicles')
+    query = db.cur.fetchall()
+
+    return [query_to_dict('vehicles', query[i]) for i in range(len(query))]

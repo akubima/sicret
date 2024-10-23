@@ -102,7 +102,7 @@ def dashboard(is_from_login: bool = False) -> None:
     iface_print.separator()
     match option:
         case 1:
-            pass
+            iface_user.calculate()
         case 2:
             pass
         case 3:
