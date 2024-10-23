@@ -38,3 +38,13 @@ def validate_tables(must_all_checked: bool = True, verbose: bool = True) -> bool
         exit()
 
     return True if all_checked else False
+
+def query_to_dict(database_schema: str, query_result: tuple) -> dict:
+    column_count = 0
+    result = dict({})
+    for key in db_schema.schema[database_schema].keys():
+        query_column = query_result[column_count]
+        result[key] = query_column
+        column_count += 1
+
+    return result

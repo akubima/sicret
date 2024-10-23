@@ -11,12 +11,11 @@ schema: dict = {
         'id': 'INTEGER PRIMARY KEY AUTOINCREMENT',
         'name': 'TEXT NOT NULL',
         'scientific_name': 'TEXT',
-        'carbon_absorption_gr_hr': 'DECIMAL(17, 2) DEFAULT 0',
+        'carbon_absorption_gr_hr': 'DECIMAL(27, 10) DEFAULT 0',
     },
     'vehicles': {
         'id': 'INTEGER PRIMARY KEY AUTOINCREMENT',
         'name': 'TEXT NOT NULL',
-        'model': 'TEXT',
-        'emissions_gr_km': 'DECIMAL(17, 2) DEFAULT 0',
+        'emissions_gr_km': 'DECIMAL(27, 10) DEFAULT 0',
     }
 }

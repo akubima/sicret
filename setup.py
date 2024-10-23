@@ -4,6 +4,7 @@ import interface.error as iface_error
 import random
 import database as db
 import database.schema as db_schema
+import database.seed as db_seed
 import os
 
 try:
@@ -48,6 +49,15 @@ try:
 
     iface_print.separator()
     iface_print.info('Seeding database...')
+
+    for vehicle in db_seed.vehicles:
+        db.cur.execute("INSERT INTO vehicles (name, emissions_gr_km) VALUES (?, ?)", (vehicle['name'], vehicle['emissions_gr_km']))
+    for tree in db_seed.trees:
+        db.cur.execute("INSERT INTO trees (name, scientific_name, carbon_absorption_gr_hr) VALUES (?, ?, ?)",
+                           (tree['name'], tree['scientific_name'], tree['carbon_absorption_gr_hr']))
+
+    db.conn.commit()
+
     iface_print.success('Seeding completed.')
 except Exception as e:
     iface_error.handle_exception(e)
