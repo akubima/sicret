@@ -2,9 +2,11 @@
 https://docs.python.org/3/library/sqlite3.html
 """
 import sqlite3
+
+import auth
 import interface.print as iface_print
 import database.schema as db_schema
-import database as db
+import auth.user as auth_user
 
 conn = sqlite3.connect('../database.db')
 cur = conn.cursor()
@@ -51,7 +53,17 @@ def query_to_dict(database_schema: str, query_result: tuple) -> dict:
     return result
 
 def get_vehicles() -> list:
-    db.cur.execute('SELECT * FROM vehicles')
-    query = db.cur.fetchall()
+    cur.execute('SELECT * FROM vehicles')
+    query = cur.fetchall()
 
     return [query_to_dict('vehicles', query[i]) for i in range(len(query))]
+
+def increment_user_carbon(increment_by: float) -> None:
+    if not auth.is_authed(): raise Exception("Authentication required")
+    cur.execute('UPDATE users SET total_carbon_gr = total_carbon_gr + ? WHERE id = ?', (increment_by, auth_user.user['id']))
+    conn.commit()
+
+def increment_user_distance(increment_by: float) -> None:
+    if not auth.is_authed(): raise Exception("Authentication required")
+    cur.execute('UPDATE users SET total_distance_m = total_distance_m + ? WHERE id = ?', (increment_by, auth_user.user['id']))
+    conn.commit()
