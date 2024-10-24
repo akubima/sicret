@@ -58,6 +58,12 @@ def get_vehicles() -> list:
 
     return [query_to_dict('vehicles', query[i]) for i in range(len(query))]
 
+def get_trees() -> list:
+    cur.execute('SELECT * FROM trees')
+    query = cur.fetchall()
+
+    return [query_to_dict('trees', query[i]) for i in range(len(query))]
+
 def increment_user_carbon(increment_by: float) -> None:
     if not auth.is_authed(): raise Exception("Authentication required")
     cur.execute('UPDATE users SET total_carbon_gr = total_carbon_gr + ? WHERE id = ?', (increment_by, auth_user.user['id']))

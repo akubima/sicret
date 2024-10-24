@@ -55,3 +55,30 @@ def calculate() -> None:
         if iface_common.input_general('Mau menghitung lagi [y/N]') not in ['y', 'Y']: break
 
     iface_auth.welcome()
+
+def compare() -> None:
+    while True:
+        iface_print.header()
+        profile()
+        iface_print.info('Bandingkan emisi karbon kamu dengan daya serap suatu jenis pohon!')
+
+        iface_print.separator()
+        iface_print.info('Pertama pilih jenis pohon di bawah ini.')
+        trees = db.get_trees()
+        for num, t in enumerate(trees, start=1):
+            iface_print.general(f'[{num}] {t['name']} (\033[3m{t['scientific_name']}\033[0m) --- {t['carbon_absorption_gr_hr']:.2f} gram/jam')
+
+        iface_print.separator()
+        option = int(iface_common.input_general('Masukkan pilihan kamu'))
+        while option not in range(len(trees) + 1):
+            iface_print.warning('Pilihan kamu tidak valid, silahkan coba lagi ya!')
+            option = int(iface_common.input_general('Masukkan pilihan kamu'))
+        selected_tree = trees[option - 1]
+
+        iface_print.header()
+        profile()
+
+        iface_print.separator()
+        if iface_common.input_general('Mau membandingkan lagi [y/N]') not in ['y', 'Y']: break
+
+    iface_auth.welcome()

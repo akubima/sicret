@@ -108,7 +108,7 @@ def dashboard(is_from_login: bool = False) -> None:
         case 1:
             iface_user.calculate()
         case 2:
-            pass
+            iface_user.compare()
         case 3:
             iface_print.warning('Kamu akan logout!')
             if iface_common.input_general('Kamu perlu login lagi untuk mengakses, kamu yakin ingin logout? [y/N]') in ['Y', 'y']:
