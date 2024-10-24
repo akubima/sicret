@@ -1,10 +1,13 @@
+import random
+
 import auth
 import auth.user as auth_user
 import interface.print as iface_print
 import interface.common as iface_common
 import database as db
 import interface.auth as iface_auth
-
+import time
+import random
 
 def profile() -> None:
     iface_print.general(f'Nama: \033[34m{auth_user.user['name']}\033[0m')
@@ -49,7 +52,7 @@ def calculate() -> None:
         iface_print.info(
             f'Kamu mengendarai {selected_vehicle['name']} yang menghasilkan emisi karbon sebanyak {selected_vehicle['emissions_gr_km']} gram untuk setiap 1 km tiap penumpang sejauh {distance_km} km.')
         iface_print.info(
-            f'Maka kamu telah menghasilkan emisi karbon sebanyak {selected_vehicle['emissions_gr_km']:.2f} gram x{distance_km} km = \033[34m{emissions:.2f} gram = {emissions_kg} kg.\033[0m')
+            f'Maka kamu telah menghasilkan emisi karbon sebanyak {selected_vehicle['emissions_gr_km']:.2f} gram x {distance_km} km = \033[34m{emissions:.2f} gram ≈ {emissions_kg} kg.\033[0m')
 
         iface_print.separator()
         if iface_common.input_general('Mau menghitung lagi [y/N]') not in ['y', 'Y']: break
@@ -57,6 +60,28 @@ def calculate() -> None:
     iface_auth.welcome()
 
 def compare() -> None:
+    quotes = [
+        (
+            'Climate change is a terrible problem, and it absolutely needs to be solved. It deserves to be a huge priority.', 'Bill Gates, Founder of Microsoft'
+        ),
+        (
+            'Climate change is a huge challenge, but it can be brought in line if governments, businesses and individuals work together.',
+            'Sir Richard Branson, Founder of Virgin Group'
+        ),
+        (
+            'We are running the most dangerous experiment in history right now, which is to see how much carbon dioxide \n the atmosphere can handle before there is an environmental catastrophe.',
+            'Elon Musk, CEO of Tesla & SpaceX'
+        ),
+        (
+            'Adults keep saying we owe it to the young people, to give them hope, but I don’t want your hope. \nI don’t want you to be hopeful. I want you to panic. I want you to feel the fear I feel every day. I want you to act. \nI want you to act as you would in a crisis. I want you to act as if the house is on fire, because it is.',
+            'Greta Thunberg, 17 year-old Swedish Activist'
+        ),
+        (
+            'The time for seeking global solutions is running out. We can find suitable solutions only if we act together and in agreement.',
+            'Pope Francis, 266th Catholic Pope'
+        ),
+    ]
+
     while True:
         iface_print.header()
         profile()
@@ -77,6 +102,30 @@ def compare() -> None:
 
         iface_print.header()
         profile()
+        iface_print.success(f'Kamu memilih pohon {selected_tree['name']} \033[3m({selected_tree['scientific_name']})\033[0m yang memiliki potensi daya serap karbon sebanyak {selected_tree['carbon_absorption_gr_hr']:.2f} gram/jam.')
+
+        amount_of_trees_needed = round(auth_user.user['total_carbon_gr'] / (selected_tree['carbon_absorption_gr_hr'] * 24), 2)
+
+        time.sleep(2)
+        iface_print.separator()
+        iface_print.info(f'Total emisi karbon kamu adalah sebanyak \033[34m{auth_user.user['total_carbon_gr']:.2f} gram ≈ {auth_user.user['total_carbon_gr']/1000:.2f} kg\033[0m.')
+
+        time.sleep(2)
+        iface_print.info(f'Maka diperlukan sebanyak \033[34m{amount_of_trees_needed}\033[0m batang pohon {selected_tree['name']} \033[3m({selected_tree['scientific_name']})\033[0m untuk menyerap total emisi karbonmu dalam 24 jam.')
+
+        time.sleep(2)
+        iface_print.separator()
+        iface_print.info('\033[104mYuk kurangi emisi karbon!\033[0m \033[3m\033[34m-1 gram\033[0m\033[3m karbon dikali 8 miliar orang itu impactful!\033[0m')
+
+        time.sleep(2)
+        iface_print.separator()
+        iface_print.general('A wise person once said:')
+
+        selected_quotes = random.choice(quotes)
+        time.sleep(2)
+        print()
+        iface_print.animated_print(f'\033[3m"{selected_quotes[0]}"\033[0m\n\033[34m---{selected_quotes[1]}\033[0m', .05)
+        print()
 
         iface_print.separator()
         if iface_common.input_general('Mau membandingkan lagi [y/N]') not in ['y', 'Y']: break

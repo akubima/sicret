@@ -60,11 +60,11 @@ def register() -> None:
         iface_print.warning('Username hanya boleh pake a-z dan 0-9. Contoh: notonegoro12')
         username = iface_common.input_general('Pilih username kamu, harus unik ya!')
 
-    while len(username) < 5:
+    while len(username.lower()) < 5:
         iface_print.warning('Username tidak boleh kurang dari 5 karakter.')
         username = iface_common.input_general('Pilih username kamu, harus unik ya!')
 
-    while auth.is_username_exist(username):
+    while auth.is_username_exist(username.lower()):
         iface_print.warning('Yahh, usernamenya udah dipake, coba yang lain deh!')
         username = iface_common.input_general('Pilih username kamu, harus unik ya!')
 
@@ -73,11 +73,11 @@ def register() -> None:
         iface_print.warning('Biar aman, password tidak boleh kurang dari 8 karakter.')
         password = iface_common.input_general('Password')
 
-    auth.user.register(name, username, password)
+    auth.user.register(name, username.lower(), password)
 
     iface_print.header()
     iface_print.success(
-        f'Selamat datang {name.split(" ")[0]}, kamu telah terdaftar dengan username \033[4m\033[34m{username}\033[0m silahkan login dahulu ya!')
+        f'Selamat datang {name.split(" ")[0]}, kamu telah terdaftar dengan username \033[4m\033[34m{username.lower()}\033[0m silahkan login dahulu ya!')
 
     iface_common.input_general('Tekan enter untuk login.')
     login()

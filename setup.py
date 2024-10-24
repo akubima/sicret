@@ -1,3 +1,8 @@
+"""
+This is a setup script that will set up all the things that are mandatory to execute this program.
+
+*** RUN ONLY ONCE *** unless it is required to reset the database contents.
+"""
 import interface.print as iface_print
 import interface.common as iface_common
 import interface.error as iface_error
@@ -59,5 +64,10 @@ try:
     db.conn.commit()
 
     iface_print.success('Seeding completed.')
+except KeyboardInterrupt:
+    print()
+    iface_print.separator()
+    iface_print.warning('Sepertinya kamu telah menekan kombinasi tombol CTRL+C.')
+    iface_print.warning('Program telah dihentikan dengan aman.')
 except Exception as e:
     iface_error.handle_exception(e)
