@@ -6,6 +6,7 @@ success messages, failure messages, and informational messages with standardized
 from .common import clear_terminal
 from .__init__ import default_terminal_line_length
 from .format import general as format_general
+import time
 
 # This function is used to print a separator line, nothing fancy.
 def separator(count: int = default_terminal_line_length) -> None:
@@ -38,3 +39,9 @@ def info(message: str, end: str = '\n') -> None:
 
 def general(message: str, end: str = '\n'):
     print(format_general(message), end=end)
+
+def animated_print(message: str, delay: float = 0.1):
+    for char in message:
+        print(char, end='', flush=True)
+        time.sleep(delay)
+    print()

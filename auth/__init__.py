@@ -14,7 +14,7 @@ def is_user_exist(user_id: str) -> bool:
 def authenticate(username: str, password: str) -> bool:
     if not is_username_exist(username): return False
     db.cur.execute(f'SELECT * FROM users WHERE username=?', (username,))
-    user_data = auth_user.user_query_to_dict(db.cur.fetchone())
+    user_data = db.query_to_dict('users', db.cur.fetchone())
     auth_attempt = bcrypt.checkpw(password.encode('utf-8'), user_data['password'])
     auth_user.user = user_data if auth_attempt else None
     return True if auth_attempt else False

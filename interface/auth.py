@@ -1,10 +1,11 @@
 import interface.print as iface_print
 import interface.common as iface_common
+import interface.user as iface_user
 import auth
 import auth.user as auth_user
 
 def welcome() -> None:
-    if auth_user.user is not None: dashboard()
+    if auth.is_authed(): dashboard()
     iface_print.header()
     iface_print.info('Halo, silahkan pilih menu di bawah ini:')
     iface_print.general('[1] Login')
@@ -24,7 +25,7 @@ def welcome() -> None:
             register()
 
 def login() -> None:
-    if auth_user.user is not None: dashboard()
+    if auth.is_authed(): dashboard()
     iface_print.header()
     iface_print.info('Silahkan login terlebih dahulu.')
 
@@ -45,7 +46,7 @@ def login() -> None:
         iface_print.failed(f'Username atau password yang kamu masukkan salah nih.')
 
 def register() -> None:
-    if auth_user.user is not None: dashboard()
+    if auth.is_authed(): dashboard()
     iface_print.header()
     iface_print.info('Halo, silahkan lengkapi data-datamu dulu ya!')
 
@@ -55,11 +56,15 @@ def register() -> None:
         name = iface_common.input_general('Nama panggilan kamu')
 
     username = iface_common.input_general(f'Halo {name.split(' ')[0]}! sekarang pilih username kamu, harus unik ya!')
-    while len(username) < 5:
+    while not username.isalnum():
+        iface_print.warning('Username hanya boleh pake a-z dan 0-9. Contoh: notonegoro12')
+        username = iface_common.input_general('Pilih username kamu, harus unik ya!')
+
+    while len(username.lower()) < 5:
         iface_print.warning('Username tidak boleh kurang dari 5 karakter.')
         username = iface_common.input_general('Pilih username kamu, harus unik ya!')
 
-    while auth.is_username_exist(username):
+    while auth.is_username_exist(username.lower()):
         iface_print.warning('Yahh, usernamenya udah dipake, coba yang lain deh!')
         username = iface_common.input_general('Pilih username kamu, harus unik ya!')
 
@@ -68,17 +73,20 @@ def register() -> None:
         iface_print.warning('Biar aman, password tidak boleh kurang dari 8 karakter.')
         password = iface_common.input_general('Password')
 
-    auth.user.register(name, username, password)
+    auth.user.register(name, username.lower(), password)
 
     iface_print.header()
     iface_print.success(
-        f'Selamat datang {name.split(" ")[0]}, kamu telah terdaftar dengan username \033[4m\033[34m{username}\033[0m silahkan login dahulu ya!')
+        f'Selamat datang {name.split(" ")[0]}, kamu telah terdaftar dengan username \033[4m\033[34m{username.lower()}\033[0m silahkan login dahulu ya!')
 
     iface_common.input_general('Tekan enter untuk login.')
     login()
 
 def dashboard(is_from_login: bool = False) -> None:
+    if not auth.is_authed(): welcome()
+
     iface_print.header()
+    iface_user.profile()
 
     if is_from_login:
         iface_print.success(f'Selamat datang kembali {auth_user.user['name'].split(' ')[0]}, senang sekali bertemu lagi denganmu.')
@@ -87,21 +95,24 @@ def dashboard(is_from_login: bool = False) -> None:
     iface_print.info('Silahkan pilih menu dibawah ini:')
     iface_print.general('[1] Hitung emisi karbon')
     iface_print.general('[2] Bandingkan total emisi karbonmu')
-    iface_print.general('[3] Logout')
+    iface_print.general('[3] Lihat statistik kamu')
+    iface_print.general('[4] Logout')
     iface_print.separator()
 
     option = int(iface_common.input_general('Masukkan pilihanmu'))
-    while option not in [1, 2, 3]:
+    while option not in [1, 2, 3, 4]:
         iface_print.warning('Pilihan kamu tidak valid, silahkan coba lagi ya!')
         option = int(iface_common.input_general('Masukkan pilihanmu'))
 
     iface_print.separator()
     match option:
         case 1:
-            pass
+            iface_user.calculate()
         case 2:
-            pass
+            iface_user.compare()
         case 3:
+            iface_user.statistics()
+        case 4:
             iface_print.warning('Kamu akan logout!')
             if iface_common.input_general('Kamu perlu login lagi untuk mengakses, kamu yakin ingin logout? [y/N]') in ['Y', 'y']:
                 iface_print.header()
