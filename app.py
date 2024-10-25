@@ -8,8 +8,7 @@ try:
     db.validate_tables()
     iface_auth.welcome()
 except KeyboardInterrupt:
-    print()
-    iface_print.separator()
+    iface_print.header()
     iface_print.warning('Sepertinya kamu telah menekan kombinasi tombol CTRL+C.')
     iface_print.warning('Program telah dihentikan dengan aman.')
 except Exception as e:

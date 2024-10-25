@@ -95,11 +95,12 @@ def dashboard(is_from_login: bool = False) -> None:
     iface_print.info('Silahkan pilih menu dibawah ini:')
     iface_print.general('[1] Hitung emisi karbon')
     iface_print.general('[2] Bandingkan total emisi karbonmu')
-    iface_print.general('[3] Logout')
+    iface_print.general('[3] Lihat statistik kamu')
+    iface_print.general('[4] Logout')
     iface_print.separator()
 
     option = int(iface_common.input_general('Masukkan pilihanmu'))
-    while option not in [1, 2, 3]:
+    while option not in [1, 2, 3, 4]:
         iface_print.warning('Pilihan kamu tidak valid, silahkan coba lagi ya!')
         option = int(iface_common.input_general('Masukkan pilihanmu'))
 
@@ -110,6 +111,8 @@ def dashboard(is_from_login: bool = False) -> None:
         case 2:
             iface_user.compare()
         case 3:
+            iface_user.statistics()
+        case 4:
             iface_print.warning('Kamu akan logout!')
             if iface_common.input_general('Kamu perlu login lagi untuk mengakses, kamu yakin ingin logout? [y/N]') in ['Y', 'y']:
                 iface_print.header()

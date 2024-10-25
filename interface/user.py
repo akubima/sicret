@@ -1,5 +1,3 @@
-import random
-
 import auth
 import auth.user as auth_user
 import interface.print as iface_print
@@ -36,7 +34,7 @@ def calculate() -> None:
 
         iface_print.separator()
         iface_print.success(f'Kamu memilih kendaraan {selected_vehicle['name']}.')
-        iface_print.info('Masukkan jarak dalam meter, gunakan titik untuk pecahan, contoh: 1500.50 untuk 1.5 km.')
+        iface_print.info('Masukkan jarak dalam meter, gunakan titik untuk pecahan, contoh: 1500.50 untuk 2 km.')
         iface_print.separator()
         distance = float(iface_common.input_general(f'Seberapa jauh kamu mengendarainya? (meter)'))
         distance_km = round(distance / 1000, 2)
@@ -131,3 +129,34 @@ def compare() -> None:
         if iface_common.input_general('Mau membandingkan lagi [y/N]') not in ['y', 'Y']: break
 
     iface_auth.welcome()
+
+def statistics() -> None:
+    iface_print.header()
+    profile()
+    iface_print.info('Statistik kamu')
+
+    number_round_the_world = round((auth_user.user['total_distance_m'] / 1000) / 40007.863, 10)
+    times_james_webb_weight = round((auth_user.user['total_carbon_gr'] / 1000) / 6161, 10)
+
+    time.sleep(1)
+    iface_print.separator()
+    iface_print.general(f'Nama kamu \033[34m{auth_user.user['name']}\033[0m.')
+
+    time.sleep(1.25)
+    iface_print.general(f'Total jarak yang kamu tempuh adalah sejauh \033[34m{auth_user.user['total_distance_m']} meter ≈ {auth_user.user['total_distance_m']/1000:.2f} km\033[0m.')
+
+    time.sleep(2)
+    iface_print.general(f'Jarak tersebut sama dengan \033[34m{number_round_the_world}\033[0m kali mengelilingi bumi di sekitar ekuator.')
+
+    time.sleep(2)
+    iface_print.separator()
+    iface_print.general(
+        f'Total emisi karbon yang kamu ciptakan adalah sebanyak \033[34m{auth_user.user['total_carbon_gr']} gram ≈ {auth_user.user['total_carbon_gr'] / 1000:.2f} kg\033[0m.')
+
+    time.sleep(2)
+    iface_print.general(
+        f'Berat tersebut sama dengan \033[34m{times_james_webb_weight}\033[0m kali berat Teleskop James Webb.')
+
+    iface_print.separator()
+    iface_common.input_general('Tekan enter untuk kembali ke menu utama')
+    iface_auth.dashboard()
