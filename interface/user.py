@@ -34,7 +34,7 @@ def calculate() -> None:
 
         iface_print.separator()
         iface_print.success(f'Kamu memilih kendaraan {selected_vehicle['name']}.')
-        iface_print.info('Masukkan jarak dalam meter, gunakan titik untuk pecahan, contoh: 1500.50 untuk 2 km.')
+        iface_print.info('Masukkan jarak dalam meter, gunakan titik untuk pecahan, contoh: 1500.50 untuk 1.5 km.')
         iface_print.separator()
         distance = float(iface_common.input_general(f'Seberapa jauh kamu mengendarainya? (meter)'))
         distance_km = round(distance / 1000, 2)
@@ -51,6 +51,8 @@ def calculate() -> None:
             f'Kamu mengendarai {selected_vehicle['name']} yang menghasilkan emisi karbon sebanyak {selected_vehicle['emissions_gr_km']} gram untuk setiap 1 km tiap penumpang sejauh {distance_km} km.')
         iface_print.info(
             f'Maka kamu telah menghasilkan emisi karbon sebanyak {selected_vehicle['emissions_gr_km']:.2f} gram x {distance_km} km = \033[34m{emissions:.2f} gram ≈ {emissions_kg} kg.\033[0m')
+        iface_print.info(
+            f'Total emisi karbon kamu sekarang adalah sebanyak \033[34m{(auth_user.user['total_carbon_gr'] / 1000):.2f} kg (+ {emissions_kg} kg) \033[0m')
 
         iface_print.separator()
         if iface_common.input_general('Mau menghitung lagi [y/N]') not in ['y', 'Y']: break

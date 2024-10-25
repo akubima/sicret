@@ -64,9 +64,13 @@ try:
     db.conn.commit()
 
     iface_print.success('Seeding completed.')
+
+    iface_print.separator()
+    iface_print.success('Setup completed.')
+
 except KeyboardInterrupt:
     iface_print.header()
-    iface_print.warning('Sepertinya kamu telah menekan kombinasi tombol CTRL+C.')
-    iface_print.warning('Program telah dihentikan dengan aman.')
+    iface_print.warning('CTRL+C pressed!')
+    iface_print.warning('The setup program has been terminated safely.')
 except Exception as e:
     iface_error.handle_exception(e)
