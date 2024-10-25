@@ -9,6 +9,21 @@ The success of creating this program is the result of good synergy and cooperati
 ### Requirements:
 - Python ^3.12
 
+### How to run
+1. Install Python ^3.12 (https://www.python.org/downloads/)
+2. Install PIP **only if it is not included in the Python installation** (https://pip.pypa.io/en/stable/installation/)
+3. Clone this repository's main branch:
+```git clone https://github.com/akubima/sicret.git --branch=main```
+5. Navigate to cloned repository directory.
+6. Open a terminal emulation program (e.g., Command Prompt, PowerShell, or a shell) from inside the directory.
+7. Install all the requirements listed in requirements.txt:
+```pip install -r requirements.txt```
+5. Run the setup.py script (this is only required once):
+```python setup.py```
+6. Follow the setup instructions accordingly.
+7. After the setup is complete, run the main program by executing:
+```python app.py```
+
 ### Contributors:
 - Aisyah Yasmina Huwaida
 - Bima Mukhlisin Bil Sajjad
