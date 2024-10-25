@@ -52,7 +52,7 @@ def calculate() -> None:
         iface_print.info(
             f'Maka kamu telah menghasilkan emisi karbon sebanyak {selected_vehicle['emissions_gr_km']:.2f} gram x {distance_km} km = \033[34m{emissions:.2f} gram ≈ {emissions_kg} kg.\033[0m')
         iface_print.info(
-            f'Total emisi karbon kamu sekarang adalah sebanyak \033[34m{(auth_user.user['total_carbon_gr'] / 1000):.2f} kg (+ {emissions_kg} kg) \033[0m')
+            f'Total emisi karbon kamu sekarang adalah sebanyak \033[34m{(auth_user.user['total_carbon_gr'] / 1000):.2f} kg (+{emissions_kg} kg) \033[0m')
 
         iface_print.separator()
         if iface_common.input_general('Mau menghitung lagi [y/N]') not in ['y', 'Y']: break
