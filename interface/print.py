@@ -18,7 +18,7 @@ def header(clear: bool = True) -> None:
     if clear: clear_terminal()
 
     separator()
-    print("\n", "\033[4mSIMPLE CARBON EMISSION TRACKER\033[0m (SICRET)".center(default_terminal_line_length), "\n")
+    print("\n", "\033[4mSIMPLE CARBON EMISSIONS TRACKER\033[0m (SICRET)".center(default_terminal_line_length), "\n")
     separator()
 
 # This function prints a standarized warning message template in the terminal.
