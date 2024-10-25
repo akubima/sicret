@@ -31,6 +31,7 @@ python app.py
 ```
 
 ### Contributors:
+#### Order does not mean who works more.
 - [Aisyah Yasmina Huwaida (Project manager)](https://github.com/yamsiiin)
 - [Nayla Innocentia Ekatri (System design)](https://github.com/naeinno)
 - [Bima Mukhlisin Bil Sajjad (Programmer)](https://github.com/akubima)
