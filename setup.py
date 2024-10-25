@@ -34,7 +34,7 @@ try:
     if not os.path.exists('database.db'):
         iface_print.info('Database file not found!')
         iface_print.info('Creating database.db file...')
-        open('database.db', 'a').close()
+        open('./database.db', 'a').close()
         iface_print.success('Database file created.')
     else:
         iface_print.success('Database file found.')

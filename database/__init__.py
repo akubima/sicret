@@ -2,13 +2,13 @@
 https://docs.python.org/3/library/sqlite3.html
 """
 import sqlite3
-
 import auth
 import interface.print as iface_print
 import database.schema as db_schema
 import auth.user as auth_user
+import os
 
-conn = sqlite3.connect('../database.db')
+conn = sqlite3.connect('./database.db')
 cur = conn.cursor()
 
 def create_table(table_name: str, attributes: dict, drop_if_exists: bool = False) -> None:
