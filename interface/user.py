@@ -34,7 +34,7 @@ def calculate() -> None:
 
         iface_print.separator()
         iface_print.success(f'Kamu memilih kendaraan {selected_vehicle['name']}.')
-        iface_print.info('Masukkan jarak dalam meter, gunakan titik untuk pecahan, contoh: 1500.50 untuk 2 km.')
+        iface_print.info('Masukkan jarak dalam meter, gunakan titik untuk pecahan, contoh: 1500.50 untuk 1.5 km.')
         iface_print.separator()
         distance = float(iface_common.input_general(f'Seberapa jauh kamu mengendarainya? (meter)'))
         distance_km = round(distance / 1000, 2)

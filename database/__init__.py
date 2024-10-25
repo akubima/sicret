@@ -37,6 +37,10 @@ def validate_tables(must_all_checked: bool = True, verbose: bool = True) -> bool
         iface_print.success('Database validated.')
     elif must_all_checked and not all_checked:
         iface_print.failed('Database validation failed, one or more table can not be found.')
+        iface_print.separator()
+        iface_print.info("Maybe you haven't run the setup.py script yet?")
+        iface_print.info("Or try re-running the setup.py script it might help resolve the issue.")
+        iface_print.separator()
         iface_print.warning('Program terminated!')
         exit()
 
