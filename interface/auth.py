@@ -10,10 +10,11 @@ def welcome() -> None:
     iface_print.info('Halo, silahkan pilih menu di bawah ini:')
     iface_print.general('[1] Login')
     iface_print.general('[2] Daftar')
+    iface_print.general('[3] Keluar dari program')
 
     iface_print.separator()
     option = int(iface_common.input_general('Pilihan kamu'))
-    while option not in [1, 2]:
+    while option not in [1, 2, 3]:
         iface_print.separator()
         iface_print.warning('Pilihan kamu tidak valid, silahkan coba lagi ya!')
         option = int(iface_common.input_general('Pilihan kamu'))
@@ -23,6 +24,10 @@ def welcome() -> None:
             login()
         case 2:
             register()
+        case 3:
+            iface_print.header()
+            iface_print.info('Program berhasil diakhiri, sampai jumpa lagi.')
+            exit()
 
 def login() -> None:
     if auth.is_authed(): dashboard()
@@ -118,6 +123,8 @@ def dashboard(is_from_login: bool = False) -> None:
                 iface_print.header()
                 iface_print.success(f'Kamu berhasil logout, sampai berjumpa lain waktu {auth_user.user['name'].split(' ')[0]}!')
                 auth_user.logout()
-                exit()
-
-            dashboard()
+                iface_print.separator()
+                iface_common.input_general('Tekan enter untuk melanjutkan.')
+                welcome()
+            else:
+                dashboard()
