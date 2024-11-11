@@ -35,6 +35,10 @@ def login() -> None:
     iface_print.info('Silahkan login terlebih dahulu.')
 
     username = iface_common.input_general('Username')
+    while not username.isalnum():
+        iface_print.warning('Username hanya boleh pake a-z dan 0-9. Contoh: notonegoro12')
+        username = iface_common.input_general('Username')
+
     while len(username) < 5:
         iface_print.warning('Username tidak boleh kurang dari 5 karakter.')
         username = iface_common.input_general('Username')

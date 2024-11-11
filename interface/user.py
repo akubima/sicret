@@ -27,7 +27,7 @@ def calculate() -> None:
 
         iface_print.separator()
         option = int(iface_common.input_general('Masukkan pilihan kamu'))
-        while option not in range(len(vehicles) + 1):
+        while option not in range(len(vehicles) + 1) or option < 1:
             iface_print.warning('Pilihan kamu tidak valid, silahkan coba lagi ya!')
             option = int(iface_common.input_general('Masukkan pilihan kamu'))
         selected_vehicle = vehicles[option - 1]
@@ -37,6 +37,11 @@ def calculate() -> None:
         iface_print.info('Masukkan jarak dalam meter, gunakan titik untuk pecahan, contoh: 1500.50 untuk 1.5 km.')
         iface_print.separator()
         distance = float(iface_common.input_general(f'Seberapa jauh kamu mengendarainya? (meter)'))
+        while distance < 1:
+            iface_print.warning('Jarak tidak boleh kurang dari atau sama dengan 0 (nol) meter.')
+            iface_print.separator()
+            distance = float(iface_common.input_general(f'Seberapa jauh kamu mengendarainya? (meter)'))
+
         distance_km = round(distance / 1000, 2)
         emissions = selected_vehicle['emissions_gr_km'] * distance_km
         emissions_kg = round(emissions / 1000, 2)
@@ -95,7 +100,7 @@ def compare() -> None:
 
         iface_print.separator()
         option = int(iface_common.input_general('Masukkan pilihan kamu'))
-        while option not in range(len(trees) + 1):
+        while option not in range(len(trees) + 1) or option < 1:
             iface_print.warning('Pilihan kamu tidak valid, silahkan coba lagi ya!')
             option = int(iface_common.input_general('Masukkan pilihan kamu'))
         selected_tree = trees[option - 1]
